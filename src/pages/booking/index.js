@@ -2,7 +2,7 @@ import { render } from "react-dom";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import Firebase from "firebase";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getLocation } from "../../redux/actions";
 import { DateTimePicker } from "@material-ui/pickers";
@@ -16,17 +16,29 @@ export default function Booking() {
   useEffect(() => {
     dispatch(getLocation());
   }, []);
+
   console.log(location);
   let keys = location ? Object.keys(location) : [];
   let vals = location ? Object.values(location) : [];
   console.log("key", keys);
   console.log(vals);
+  const [selectedDate, handleDateChange] = useState(
+    new Date("2018-01-01T00:00:00.000Z")
+  );
+  console.log(selectedDate);
   return (
     <div className="app">
       <Formik
         initialValues={{ location: "None" }}
         onSubmit={(values) => {
           console.log("val", values);
+          let initialDateTimePicker = values.initialDateTimePicker;
+          let finalDateTimePicker = values.finalDateTimePicker;
+          console.log(
+            "total time : ",
+            finalDateTimePicker.getTime(),
+            initialDateTimePicker.getTime()
+          );
         }}
         // validationSchema={Yup.object().shape({
         //   email: Yup.string().email().required("Required"),
@@ -55,7 +67,6 @@ export default function Booking() {
                   setFieldValue("location", value);
                   setFieldValue("slot", "");
 
-                  console.log("l", location[value]);
                   let l = location[value];
                   let fff = await Object.entries(location[value]);
                   setFieldValue("slots", fff);
@@ -79,9 +90,10 @@ export default function Booking() {
                 name="slot"
                 as="select"
                 onChange={handleChange}
+                disablePast="true"
               >
                 <option value="None">Select Slots</option>
-                {console.log("values slots", values.slots)}
+
                 {values?.slots?.length &&
                   values?.slots?.map((val) => {
                     return (
@@ -91,12 +103,29 @@ export default function Booking() {
                     );
                   })}
               </Field>
-              <DateTimePicker
+              <Field
+                component={DateTimePicker}
                 variant="inline"
-                label="Basic example"
-                // value={selectedDate}
-                // onChange={handleDateChange}
-              />
+                value={values.initialDateTimePicker}
+                id="initialDateTimePicker"
+                name="initialDateTimePicker"
+                disablePast="true"
+                onChange={(e) => {
+                  setFieldValue("initialDateTimePicker", e);
+                  console.log(e);
+                }}
+              ></Field>
+              <Field
+                component={DateTimePicker}
+                variant="inline"
+                value={values.finalDateTimePicker}
+                id="finalDateTimePicker"
+                name="finalDateTimePicker"
+                onChange={(e) => {
+                  setFieldValue("finalDateTimePicker", e);
+                  console.log(e);
+                }}
+              ></Field>
 
               <button
                 type="button"

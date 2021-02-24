@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import "./index.css";
 // import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import Booking from "./components/booking";
-import Root from "./components/Root";
+import Booking from "./pages/booking";
+import Root from "./pages/Root";
 
 ReactDOM.render(
   <React.StrictMode>
