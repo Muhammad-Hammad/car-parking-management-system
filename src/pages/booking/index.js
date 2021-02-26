@@ -149,7 +149,7 @@ export default function Booking() {
     </div>
   );
 }
-console.log("asdas");
+
 // const getRegions = (country) => {
 //     // Simulate async call
 
