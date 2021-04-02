@@ -1,0 +1,21 @@
+html {
+  height: 100%;
+  font-family: "Montserrat";
+
+  --bg: #fcfcfc;
+  --bg-panel: #ebebeb;
+  --color-headings: #fb8122;
+  --color-text: #1d2228;
+  --color-scroll: #ef6848;
+  --navigation: #797983;
+  --fontFamily: nutinoSan regular;
+}
+
+html[data-theme="dark"] {
+  --bg: #1d2228;
+  --bg-panel: #434343;
+  --color-headings: #fb8122;
+  --color-text: #fcfcfc;
+  --color-scroll: #ef6848;
+  --navigation: #797983;
+}
